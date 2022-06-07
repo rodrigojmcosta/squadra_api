@@ -29,24 +29,11 @@ public class Pessoa {
     @Column(name = "SENHA")
     private String senha;
 
-    @OneToMany(mappedBy = "pessoa")
-    private List<Endereco> enderecos = new ArrayList<>();
-
     @Column(name = "STATUS")
     private int status;
 
     public Pessoa() {
 
-    }
-
-    public Pessoa(String nome, String sobrenome, int idade, String login, String senha, int status, List<Endereco> enderecos) {
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.idade = idade;
-        this.login = login;
-        this.senha = senha;
-        this.status = status;
-        this.enderecos = enderecos;
     }
 
     public Pessoa(String nome, String sobrenome, int idade, String login, String senha, int status) {
@@ -106,30 +93,8 @@ public class Pessoa {
         this.status = status;
     }
 
-    public List<Endereco> getEnderecos() {
-        return enderecos;
-    }
-
-    public void setEnderecos(List<Endereco> enderecos) {
-        this.enderecos = enderecos;
-    }
-
     public Long getCodigoPessoa() {
         return codigoPessoa;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "codigoPessoa=" + codigoPessoa +
-                ", nome='" + nome + '\'' +
-                ", sobrenome='" + sobrenome + '\'' +
-                ", idade=" + idade +
-                ", login='" + login + '\'' +
-                ", senha='" + senha + '\'' +
-                ", status=" + status +
-                ", enderecos=" + enderecos +
-                '}';
     }
 
 }

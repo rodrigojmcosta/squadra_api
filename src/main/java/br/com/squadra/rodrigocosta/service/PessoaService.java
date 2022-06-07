@@ -27,18 +27,14 @@ public class PessoaService {
     @Autowired
     EnderecoRepository enderecoRepository;
 
-    public void salvaPessoa(PessoaRequest pessoaRequest) {
-        Pessoa pessoaSeraSalva = new Pessoa(pessoaRequest.getNome(), pessoaRequest.getSobrenome(),
-                pessoaRequest.getIdade(), pessoaRequest.getLogin(), pessoaRequest.getSenha(), pessoaRequest.getStatus());
+    public void salvaPessoaComEnderecos(PessoaRequest pessoaRequest) {
+        Pessoa pessoaSeraSalva = PessoaRequest.toModel(pessoaRequest);
         Pessoa pessoaSalva = pessoaRepository.save(pessoaSeraSalva);
-        List<Endereco> listaEnderecosPessoa = new ArrayList<>();
+        List<Endereco> listaEnderecosPessoaSalva = new ArrayList<>();
         for (EnderecoRequest enderecoRequest : pessoaRequest.getEnderecos()) {
-            listaEnderecosPessoa.add(new Endereco(getBairro(enderecoRequest.getCodigoBairro()), pessoaSalva, enderecoRequest.getNomeRua(), enderecoRequest.getNumero(),
-                    enderecoRequest.getComplemento(), enderecoRequest.getCep()));
+            listaEnderecosPessoaSalva.add(EnderecoRequest.toModel(enderecoRequest, pessoaSalva, getBairro(enderecoRequest.getCodigoBairro())));
         }
-        pessoaSalva.getEnderecos().addAll(listaEnderecosPessoa);
-        enderecoRepository.saveAll(listaEnderecosPessoa);
-        pessoaRepository.save(pessoaSalva);
+        enderecoRepository.saveAll(listaEnderecosPessoaSalva);
     }
 
     private Bairro getBairro(Long codigoBairro) {
@@ -50,4 +46,5 @@ public class PessoaService {
                     " cadastrado no banco de dados!");
         }
     }
+
 }

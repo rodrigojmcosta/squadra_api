@@ -1,5 +1,7 @@
 package br.com.squadra.rodrigocosta.request;
 
+import br.com.squadra.rodrigocosta.model.Pessoa;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -95,5 +97,10 @@ public class PessoaRequest {
 
     public void setEnderecos(List<EnderecoRequest> enderecos) {
         this.enderecos = enderecos;
+    }
+
+    public static Pessoa toModel(PessoaRequest pessoaRequest) {
+        return new Pessoa(pessoaRequest.getNome(), pessoaRequest.getSobrenome(),
+                pessoaRequest.getIdade(), pessoaRequest.getLogin(), pessoaRequest.getSenha(), pessoaRequest.getStatus());
     }
 }

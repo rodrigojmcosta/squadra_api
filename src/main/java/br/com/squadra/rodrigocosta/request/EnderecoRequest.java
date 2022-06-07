@@ -1,5 +1,9 @@
 package br.com.squadra.rodrigocosta.request;
 
+import br.com.squadra.rodrigocosta.model.Bairro;
+import br.com.squadra.rodrigocosta.model.Endereco;
+import br.com.squadra.rodrigocosta.model.Pessoa;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -81,5 +85,10 @@ public class EnderecoRequest {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public static Endereco toModel(EnderecoRequest enderecoRequest, Pessoa pessoaSalva, Bairro bairroBuscado) {
+        return new Endereco(bairroBuscado, pessoaSalva, enderecoRequest.getNomeRua(), enderecoRequest.getNumero(),
+                enderecoRequest.getComplemento(), enderecoRequest.getCep());
     }
 }
