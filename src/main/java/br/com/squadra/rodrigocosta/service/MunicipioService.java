@@ -53,9 +53,9 @@ public class MunicipioService {
         return listaMunicipioResponse;
     }
 
-    public List<Municipio> atualizaMunicipio(MunicipioRequest municipioRequest) {
+    public List<Municipio> atualizaMunicipio(MunicipioRequest municipioRequest, Uf ufMunicipio) {
         Optional<Municipio> municipioBuscado = repository.findById(municipioRequest.getCodigoMunicipio());
-        if (municipioBuscado.isPresent()) {
+        if (municipioBuscado.isPresent() && ufMunicipio != null) {
             municipioBuscado.get().setNome(municipioRequest.getNome());
             municipioBuscado.get().setCodigoUf(municipioRequest.getCodigoUf());
             municipioBuscado.get().setStatus(municipioRequest.getStatus());

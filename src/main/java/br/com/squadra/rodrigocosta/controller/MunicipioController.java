@@ -62,9 +62,10 @@ public class MunicipioController {
     }
 
     @PutMapping(value = "/municipio")
-    public ResponseEntity<?> atualizaMunicipio(@RequestBody @Validated MunicipioRequest municipioRequest) {
+    public ResponseEntity<?> atualizaMunicipio(@RequestBody MunicipioRequest municipioRequest) {
+        Uf ufMunicipio = ufService.encontraUfPorCodigoUf(municipioRequest.getCodigoUf());
         try {
-            return ResponseEntity.ok(service.atualizaMunicipio(municipioRequest));
+            return ResponseEntity.ok(service.atualizaMunicipio(municipioRequest, ufMunicipio));
         } catch (NullPointerException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
         }

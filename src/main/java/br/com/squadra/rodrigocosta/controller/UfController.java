@@ -20,7 +20,6 @@ public class UfController {
 
     @PostMapping(value = "/uf")
     public ResponseEntity<?> cadastrarUf(@RequestBody @Validated UfRequest ufRequest) {
-
         try {
             service.cadastrarUf(ufRequest);
             service.listaUfs();
