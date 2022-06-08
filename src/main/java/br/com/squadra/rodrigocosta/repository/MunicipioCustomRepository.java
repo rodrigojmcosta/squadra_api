@@ -18,8 +18,8 @@ public class MunicipioCustomRepository {
 
     public List<Municipio> find(Long codigoMunicipio, Long codigoUf, String nome, Long status) {
 
-        String querySemParametros = "SELECT * FROM TB_MUNICIPIO";
         String queryComParametros = "SELECT * FROM TB_MUNICIPIO ";
+        String querySemParametros = "SELECT * FROM TB_MUNICIPIO";
         String condicao = "WHERE";
 
         if (codigoMunicipio != null) {

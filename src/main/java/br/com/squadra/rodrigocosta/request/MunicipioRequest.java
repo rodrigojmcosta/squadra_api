@@ -25,6 +25,13 @@ public class MunicipioRequest {
         this.status = status;
     }
 
+    public MunicipioRequest(Long codigoMunicipio, Long codigoUf, String nome, Long status) {
+        this.codigoMunicipio = codigoMunicipio;
+        this.codigoUf = codigoUf;
+        this.nome = nome;
+        this.status = status;
+    }
+
     public Long getCodigoMunicipio() {
         return codigoMunicipio;
     }

@@ -19,6 +19,7 @@ public class MunicipioService {
     @Autowired
     MunicipioRepository repository;
 
+    @Autowired
     MunicipioCustomRepository customRepository;
 
     public void salvaMunicipio(MunicipioRequest municipioRequest, Uf ufMunicipio) throws NullPointerException {
