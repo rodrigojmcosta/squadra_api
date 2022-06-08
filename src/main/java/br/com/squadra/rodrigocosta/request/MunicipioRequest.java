@@ -5,6 +5,8 @@ import javax.validation.constraints.NotNull;
 
 public class MunicipioRequest {
 
+    private Long codigoMunicipio;
+
     @NotNull
     private Long codigoUf;
 
@@ -12,15 +14,19 @@ public class MunicipioRequest {
     private String nome;
 
     @NotNull
-    private int status;
+    private Long status;
 
     public MunicipioRequest() {
     }
 
-    public MunicipioRequest(Long codigoUf, String nome, int status) {
+    public MunicipioRequest(Long codigoUf, String nome, Long status) {
         this.codigoUf = codigoUf;
         this.nome = nome;
         this.status = status;
+    }
+
+    public Long getCodigoMunicipio() {
+        return codigoMunicipio;
     }
 
     public Long getCodigoUf() {
@@ -39,11 +45,11 @@ public class MunicipioRequest {
         this.nome = nome;
     }
 
-    public int getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 

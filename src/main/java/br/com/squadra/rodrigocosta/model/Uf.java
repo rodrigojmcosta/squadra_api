@@ -13,6 +13,12 @@ public class Uf {
     @Column(name = "CODIGO_UF")
     private Long codigoUf;
 
+    public void setCodigoUfMunicipio(Long codigoUfMunicipio) {
+        this.codigoUfMunicipio = codigoUfMunicipio;
+    }
+
+    private Long codigoUfMunicipio;
+
     @Column(name = "NOME")
     private String nome;
 
@@ -23,12 +29,12 @@ public class Uf {
     private List<Municipio> municipios;
 
     @Column(name = "STATUS")
-    private int status;
+    private Long status;
 
     public Uf() {
     }
 
-    public Uf(String nome, String sigla, int status) {
+    public Uf(String nome, String sigla, Long status) {
         this.nome = nome;
         this.sigla = sigla;
         this.status = status;
@@ -50,20 +56,16 @@ public class Uf {
         this.sigla = sigla;
     }
 
-    public int getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 
     public Long getCodigoUf() {
         return codigoUf;
-    }
-
-    public void setCodigoUf(Long codigoUf) {
-        this.codigoUf = codigoUf;
     }
 
     @Override

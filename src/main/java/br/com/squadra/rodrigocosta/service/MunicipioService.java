@@ -2,11 +2,15 @@ package br.com.squadra.rodrigocosta.service;
 
 import br.com.squadra.rodrigocosta.model.Municipio;
 import br.com.squadra.rodrigocosta.model.Uf;
+import br.com.squadra.rodrigocosta.repository.MunicipioCustomRepository;
 import br.com.squadra.rodrigocosta.repository.MunicipioRepository;
 import br.com.squadra.rodrigocosta.request.MunicipioRequest;
+import br.com.squadra.rodrigocosta.response.MunicipioResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,6 +18,8 @@ public class MunicipioService {
 
     @Autowired
     MunicipioRepository repository;
+
+    MunicipioCustomRepository customRepository;
 
     public void salvaMunicipio(MunicipioRequest municipioRequest, Uf ufMunicipio) throws NullPointerException {
         if (ufMunicipio != null) {
@@ -26,5 +32,36 @@ public class MunicipioService {
     public Municipio findMunicipioById(Long codigoMunicipio) {
         Optional<Municipio> municipioBuscado = repository.findById(codigoMunicipio);
         return municipioBuscado.orElse(null);
+    }
+
+    public List<MunicipioResponse> listaMunicipios() {
+        List<Municipio> listaMunicipios = repository.findAll();
+        List<MunicipioResponse> listaMunicipioResponse = new ArrayList<>();
+        for (Municipio municipio : listaMunicipios) {
+            listaMunicipioResponse.add(MunicipioResponse.toResponse(municipio));
+        }
+        return listaMunicipioResponse;
+    }
+
+    public List<MunicipioResponse>  listaMunicipiosComParametro(Long codigoMunicipio, Long codigoUf, String nome, Long status) {
+        List<Municipio> listaMunicipios = customRepository.find(codigoMunicipio, codigoUf, nome, status);
+        List<MunicipioResponse> listaMunicipioResponse = new ArrayList<>();
+        for (Municipio municipio : listaMunicipios) {
+            listaMunicipioResponse.add(MunicipioResponse.toResponse(municipio));
+        }
+        return listaMunicipioResponse;
+    }
+
+    public List<Municipio> atualizaMunicipio(MunicipioRequest municipioRequest) {
+        Optional<Municipio> municipioBuscado = repository.findById(municipioRequest.getCodigoMunicipio());
+        if (municipioBuscado.isPresent()) {
+            municipioBuscado.get().setNome(municipioRequest.getNome());
+            municipioBuscado.get().setCodigoUf(municipioRequest.getCodigoUf());
+            municipioBuscado.get().setStatus(municipioRequest.getStatus());
+            repository.save(municipioBuscado.get());
+            return repository.findAll();
+        } else {
+            throw new NullPointerException("Não foi possível encontrar nenhum municipio no banco de dados com o codigoMunicipio" + " referenciado!");
+        }
     }
 }

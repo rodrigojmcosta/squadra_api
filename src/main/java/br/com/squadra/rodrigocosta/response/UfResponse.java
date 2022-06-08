@@ -10,12 +10,12 @@ public class UfResponse {
 
     private String sigla;
 
-    private int status;
+    private Long status;
 
     public UfResponse() {
     }
 
-    public UfResponse(Long codigoUf, String nome, String sigla, int status) {
+    public UfResponse(Long codigoUf, String nome, String sigla, Long status) {
         this.codigoUf = codigoUf;
         this.nome = nome;
         this.sigla = sigla;
@@ -34,7 +34,7 @@ public class UfResponse {
         return sigla;
     }
 
-    public int getStatus() {
+    public Long getStatus() {
         return status;
     }
 

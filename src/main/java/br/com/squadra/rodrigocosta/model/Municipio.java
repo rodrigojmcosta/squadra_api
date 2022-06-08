@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table (name = "TB_MUNICIPIO")
+@Table(name = "TB_MUNICIPIO")
 public class Municipio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQUENCE_MUNICIPIO")
-    @SequenceGenerator(name="SEQUENCE_MUNICIPIO", sequenceName="SEQUENCE_MUNICIPIO", allocationSize = 1)
+    @SequenceGenerator(name = "SEQUENCE_MUNICIPIO", sequenceName = "SEQUENCE_MUNICIPIO", allocationSize = 1)
     @Column(name = "CODIGO_MUNICIPIO")
     private Long codigoMunicipio;
 
@@ -25,13 +25,13 @@ public class Municipio {
     private List<Bairro> bairros;
 
     @Column(name = "STATUS")
-    private int status;
+    private Long status;
 
     public Municipio() {
 
     }
 
-    public Municipio(Uf uf, String nome, int status) {
+    public Municipio(Uf uf, String nome, Long status) {
         this.uf = uf;
         this.nome = nome;
         this.status = status;
@@ -61,16 +61,20 @@ public class Municipio {
         this.bairros = bairros;
     }
 
-    public int getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 
     public Long getCodigoMunicipio() {
         return codigoMunicipio;
+    }
+
+    public Long getCodigoUf() {
+        return uf.getCodigoUf();
     }
 
     @Override
@@ -83,4 +87,7 @@ public class Municipio {
                 '}';
     }
 
+    public void setCodigoUf(Long codigoUf) {
+        this.uf.setCodigoUfMunicipio(codigoUf);
+    }
 }

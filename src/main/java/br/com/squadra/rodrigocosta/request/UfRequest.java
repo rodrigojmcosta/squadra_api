@@ -18,19 +18,19 @@ public class UfRequest {
     @NotNull
     @Min(value = 1, message = "O campo STATUS deve estar entre 1 e 2!")
     @Max(value = 2, message = "O campo STATUS deve estar entre 1 e 2!")
-    private int status;
+    private Long status;
 
     public UfRequest() {
     }
 
-    public UfRequest(Long codigoUf, String nome, String sigla, int status) {
+    public UfRequest(Long codigoUf, String nome, String sigla, Long status) {
         this.codigoUf = codigoUf;
         this.nome = nome;
         this.sigla = sigla;
         this.status = status;
     }
 
-    public UfRequest(String nome, String sigla, int status) {
+    public UfRequest(String nome, String sigla, Long status) {
         this.nome = nome;
         this.sigla = sigla;
         this.status = status;
@@ -60,11 +60,11 @@ public class UfRequest {
         this.sigla = sigla;
     }
 
-    public int getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 
