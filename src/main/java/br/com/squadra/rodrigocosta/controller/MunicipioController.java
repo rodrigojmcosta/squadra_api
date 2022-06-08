@@ -23,7 +23,7 @@ public class MunicipioController {
 
     @PostMapping(value = "/municipio")
     public ResponseEntity<?> cadastraMunicipio(@RequestBody @Validated MunicipioRequest municipioRequest) {
-        Uf ufMunicipio = ufService.findUfById(municipioRequest.getCodigoUf());
+        Uf ufMunicipio = ufService.encontraUfPorCodigoUf(municipioRequest.getCodigoUf());
         try {
             service.salvaMunicipio(municipioRequest, ufMunicipio);
         } catch (NullPointerException e) {

@@ -1,11 +1,13 @@
 package br.com.squadra.rodrigocosta.request;
 
 import br.com.squadra.rodrigocosta.model.Uf;
-import org.hibernate.validator.constraints.Range;
+import org.springframework.util.Assert;
 
 import javax.validation.constraints.*;
 
 public class UfRequest {
+
+    private Long codigoUf;
 
     @NotBlank(message = "O campo NOME não pode ser vazio!")
     private String nome;
@@ -16,15 +18,30 @@ public class UfRequest {
     @NotNull
     @Min(value = 1, message = "O campo STATUS deve estar entre 1 e 2!")
     @Max(value = 2, message = "O campo STATUS deve estar entre 1 e 2!")
-    private int Status;
+    private int status;
 
     public UfRequest() {
+    }
+
+    public UfRequest(Long codigoUf, String nome, String sigla, int status) {
+        this.codigoUf = codigoUf;
+        this.nome = nome;
+        this.sigla = sigla;
+        this.status = status;
     }
 
     public UfRequest(String nome, String sigla, int status) {
         this.nome = nome;
         this.sigla = sigla;
-        Status = status;
+        this.status = status;
+    }
+
+    public Long getCodigoUf() {
+        return codigoUf;
+    }
+
+    public void setCodigoUf(Long codigoUf) {
+        this.codigoUf = codigoUf;
     }
 
     public String getNome() {
@@ -44,11 +61,11 @@ public class UfRequest {
     }
 
     public int getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(int status) {
-        Status = status;
+        this.status = status;
     }
 
     public static Uf toModel(UfRequest ufRequest) {
