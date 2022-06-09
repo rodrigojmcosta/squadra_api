@@ -67,7 +67,8 @@ public class MunicipioService {
             }
             return municipiosResponse;
         } else {
-            throw new NullPointerException("Não foi possível encontrar nenhum municipio no banco de dados com o codigoMunicipio" + " referenciado!");
+            throw new NullPointerException("Não foi possível encontrar nenhum municipio no banco de dados com o " +
+                    "codigoMunicipio" + " referenciado!");
         }
     }
 }

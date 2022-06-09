@@ -58,15 +58,18 @@ public class MunicipioResponse {
     }
 
     public static MunicipioResponse toResponse(Municipio municipio) { //
-        return new MunicipioResponse(municipio.getCodigoMunicipio(), municipio.getUf().getCodigoUf(), municipio.getNome(), municipio.getStatus(), null);
+        return new MunicipioResponse(municipio.getCodigoMunicipio(), municipio.getUf().getCodigoUf(), municipio.getNome(),
+                municipio.getStatus(), null);
     }
 
     public static MunicipioResponse toPutResponse(Municipio municipio) { //
-        return new MunicipioResponse(municipio.getCodigoMunicipio(), municipio.getUf().getCodigoUf(), municipio.getNome(), municipio.getStatus());
+        return new MunicipioResponse(municipio.getCodigoMunicipio(), municipio.getUf().getCodigoUf(),
+                municipio.getNome(), municipio.getStatus());
     }
 
     public static MunicipioResponse toPessoaResponse(Municipio municipio) {
-        return new MunicipioResponse(municipio.getCodigoMunicipio(), municipio.getUf().getCodigoUf(), municipio.getNome(), municipio.getStatus(), UfResponse.toResponse(municipio.getUf()));
+        return new MunicipioResponse(municipio.getCodigoMunicipio(), municipio.getUf().getCodigoUf(),
+                municipio.getNome(), municipio.getStatus(), UfResponse.toResponse(municipio.getUf()));
     }
 
 }

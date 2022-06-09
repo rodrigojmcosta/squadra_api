@@ -35,18 +35,4 @@ public class EnderecoCustomRepository {
 
     }
 
-    @Transactional
-    public void excluiEnderecosNaoRecebidos(List<Long> enderecosRecebidos) {
-
-        String query = "DELETE FROM TB_ENDERECO WHERE CODIGO_ENDERECO NOT IN (";
-
-        for (int i = 0; i < enderecosRecebidos.size(); i++) {
-            query += ":codigoEndereco);";
-        }
-
-        var q = em.createNativeQuery(query, Endereco.class);
-        q.setParameter("codigoEndereco", enderecosRecebidos.get(0));
-        q.getFirstResult();
-
-    }
 }

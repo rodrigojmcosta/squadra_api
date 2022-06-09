@@ -74,7 +74,8 @@ public class BairroService {
             }
             return bairrosResponse;
         } else {
-            throw new NullPointerException("Não foi possível encontrar nenhum bairro no banco de dados com o codigoBairro" + " referenciado!");
+            throw new NullPointerException("Não foi possível encontrar nenhum bairro no banco de dados com o codigoBairro" +
+                    " referenciado!");
         }
     }
 }

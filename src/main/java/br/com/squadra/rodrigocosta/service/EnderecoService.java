@@ -9,6 +9,8 @@ import br.com.squadra.rodrigocosta.request.EnderecoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,6 +35,18 @@ public class EnderecoService {
             enderecoBuscado.get().setComplemento(enderecoRequest.getComplemento());
             enderecoBuscado.get().setCep(enderecoRequest.getCep());
             repository.save(enderecoBuscado.get());
+        }
+    }
+
+    public void deletaEnderecosPorCodigoNaoRecebido(List<Endereco> enderecos, List<EnderecoRequest> listaEnderecosRequest) {
+        List<Long> listaCodigosEnderecoRecebidos = new ArrayList<>();
+        for (EnderecoRequest enderecoRequest : listaEnderecosRequest) {
+            listaCodigosEnderecoRecebidos.add(enderecoRequest.getCodigoEndereco());
+        }
+        for (Endereco endereco : enderecos) {
+            if (!listaCodigosEnderecoRecebidos.contains(endereco.getCodigoEndereco())) {
+                repository.deleteById(endereco.getCodigoEndereco());
+            }
         }
     }
 }

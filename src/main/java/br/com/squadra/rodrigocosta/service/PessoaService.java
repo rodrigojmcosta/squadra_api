@@ -48,7 +48,8 @@ public class PessoaService {
         Pessoa pessoaSalva = pessoaRepository.save(pessoaSeraSalva);
         List<Endereco> listaEnderecosPessoaSalva = new ArrayList<>();
         for (EnderecoRequest enderecoRequest : pessoaRequest.getEnderecos()) {
-            listaEnderecosPessoaSalva.add(EnderecoRequest.toModel(enderecoRequest, pessoaSalva, getBairro(enderecoRequest.getCodigoBairro())));
+            listaEnderecosPessoaSalva.add(EnderecoRequest.toModel(enderecoRequest, pessoaSalva,
+                    getBairro(enderecoRequest.getCodigoBairro())));
         }
         enderecoRepository.saveAll(listaEnderecosPessoaSalva);
     }
@@ -58,7 +59,8 @@ public class PessoaService {
         if (bairroBuscado.isPresent()) {
             return bairroBuscado.get();
         } else {
-            throw new NullPointerException("O código de bairro referenciado não corresponde a nenhum bairro" + " cadastrado no banco de dados!");
+            throw new NullPointerException("O código de bairro referenciado não corresponde a nenhum bairro" +
+                    " cadastrado no banco de dados!");
         }
     }
 
@@ -100,6 +102,8 @@ public class PessoaService {
         Optional<Pessoa> pessoaSalva = pessoaRepository.findById(pessoaRequest.getCodigoPessoa());
         if (pessoaSalva.isPresent()) {
             atualizaDadosPessoa(pessoaSalva.get(), pessoaRequest);
+            List<Endereco> enderecos = enderecoCustomRepository.busca(pessoaSalva.get().getCodigoPessoa());
+            enderecoService.deletaEnderecosPorCodigoNaoRecebido(enderecos, pessoaRequest.getEnderecos());
             for (EnderecoRequest enderecoRequest : pessoaRequest.getEnderecos()) {
                 Optional<Bairro> bairroSalvo = bairroRepository.findById(enderecoRequest.getCodigoBairro());
                 if (bairroSalvo.isPresent()) {
@@ -110,13 +114,6 @@ public class PessoaService {
                     }
                 }
             }
-            List<Long> enderecosRecebidos = new ArrayList<>();
-            for (EnderecoRequest enderecoRequest : pessoaRequest.getEnderecos()) {
-                if (enderecoRequest.getCodigoEndereco() != null) {
-                    enderecosRecebidos.add(enderecoRequest.getCodigoEndereco());
-                }
-            }
-            enderecoCustomRepository.excluiEnderecosNaoRecebidos(enderecosRecebidos);
             return PessoaResponse.toPutResponse(pessoaRepository.findAll());
         } else {
             throw new Exception();

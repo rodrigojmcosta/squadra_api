@@ -42,7 +42,8 @@ public class UfController {
             List<UfResponse> listaUfsResponse = service.listaUfsComParametro(codigoUf, nome, sigla, status);
             if (codigoUf != null && nome == null && sigla == null && status == null) {
                 if (listaUfsResponse.isEmpty()) {
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Erro("Não foi possível encontrar nenhuma UF com este código!", HttpStatus.NOT_FOUND.value()));
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Erro("Não foi possível encontrar" +
+                            " nenhuma UF com este código!", HttpStatus.NOT_FOUND.value()));
                 }
                 return ResponseEntity.ok(listaUfsResponse.stream().findFirst().get()); //Retorna apenas um objeto
             } else if (listaUfsResponse.isEmpty()) {
@@ -58,7 +59,8 @@ public class UfController {
         try {
             return ResponseEntity.ok(service.atualizaUf(ufRequest));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Erro("Não foi possível alterar o registro no banco de dados!", HttpStatus.NOT_FOUND.value()));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Erro("Não foi possível alterar o registro" +
+                    " no banco de dados!", HttpStatus.NOT_FOUND.value()));
         }
     }
 

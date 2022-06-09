@@ -29,7 +29,8 @@ public class BairroController {
         try {
             return ResponseEntity.ok(service.salvaBairro(bairroRequest, municipioBairro));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro("Não foi possível realizar a operação!", 400));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro("Não foi possível realizar a " +
+                    "operação!", 400));
         }
 
     }
@@ -53,7 +54,8 @@ public class BairroController {
                         codigoMunicipio, nome, status);
                 BairroResponse bairroResponse = new BairroResponse();
                 if (listaBairrosResponse.isEmpty()) {
-                    return ResponseEntity.ok(listaBairrosResponse); //ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não existe nenum bairro
+                    return ResponseEntity.ok(listaBairrosResponse); //ResponseEntity.status(HttpStatus.BAD_REQUEST).body
+                    // ("Não existe nenum bairro
                     // cadastrado
                     // no banco de dados" + " que corresponde aos valores que foram passados!");
                 } else if (codigoBairro != null && codigoMunicipio == null && nome == null && status == null) {
@@ -63,7 +65,8 @@ public class BairroController {
                 }
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro("Não foi possível realizar a operação!", 400));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro("Não foi possível realizar a " +
+                    "operação!", 400));
         }
     }
 
@@ -73,7 +76,8 @@ public class BairroController {
         try {
             return ResponseEntity.ok(service.atualizaBairro(bairroRequest, municipioBairro));
         } catch (NullPointerException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro("Não foi possível realizar a operação!", 400));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro("Não foi possível realizar a" +
+                    " operação!", 400));
         }
     }
 

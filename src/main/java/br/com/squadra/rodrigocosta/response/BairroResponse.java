@@ -28,7 +28,8 @@ public class BairroResponse {
         this.status = status;
     }
 
-    public BairroResponse(Long codigoBairro, Long codigoMunicipio, String nome, Long status, MunicipioResponse municipioResponse) {
+    public BairroResponse(Long codigoBairro, Long codigoMunicipio, String nome, Long status,
+                          MunicipioResponse municipioResponse) {
         this.codigoBairro = codigoBairro;
         this.codigoMunicipio = codigoMunicipio;
         this.nome = nome;
@@ -57,15 +58,18 @@ public class BairroResponse {
     }
 
     public static BairroResponse toResponse(Bairro bairro) {
-        return new BairroResponse(bairro.getCodigoBairro(), bairro.getMunicipio().getCodigoMunicipio(), bairro.getNome(), bairro.getStatus(), null);
+        return new BairroResponse(bairro.getCodigoBairro(), bairro.getMunicipio().getCodigoMunicipio(),
+                bairro.getNome(), bairro.getStatus(), null);
     }
 
     public static BairroResponse toPessoaResponse(Bairro bairro) {
-        return new BairroResponse(bairro.getCodigoBairro(), bairro.getMunicipio().getCodigoMunicipio(), bairro.getNome(), bairro.getStatus(), MunicipioResponse.toPessoaResponse(bairro.getMunicipio()));
+        return new BairroResponse(bairro.getCodigoBairro(), bairro.getMunicipio().getCodigoMunicipio(),
+                bairro.getNome(), bairro.getStatus(), MunicipioResponse.toPessoaResponse(bairro.getMunicipio()));
     }
 
     public static BairroResponse toPutResponse(Bairro bairro) {
-        return new BairroResponse(bairro.getCodigoBairro(), bairro.getMunicipio().getCodigoMunicipio(), bairro.getNome(), bairro.getStatus());
+        return new BairroResponse(bairro.getCodigoBairro(), bairro.getMunicipio().getCodigoMunicipio(),
+                bairro.getNome(), bairro.getStatus());
     }
 
 }

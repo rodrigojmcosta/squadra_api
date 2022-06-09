@@ -60,12 +60,10 @@ public class PessoaController {
     @PutMapping(value = "/pessoa")
     public ResponseEntity<?> atualizaPessoa(@RequestBody @Validated PessoaRequest pessoaRequest) {
         try {
-            service.atualizaPessoa(pessoaRequest);
+            return ResponseEntity.ok(service.atualizaPessoa(pessoaRequest));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro("Não foi possível realizar a operação!", 400));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro("Não foi possível realizar a" +
+                    " operação!", 400));
         }
-        return ResponseEntity.ok().build();
     }
-
-
 }

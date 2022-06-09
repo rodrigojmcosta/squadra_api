@@ -29,7 +29,8 @@ public class MunicipioController {
         try {
             service.salvaMunicipio(municipioRequest, ufMunicipio);
         } catch (NullPointerException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Erro("Não foi possível cadastrar o município no banco de dados!", HttpStatus.NOT_FOUND.value()));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Erro("Não foi possível cadastrar o município" +
+                    " no banco de dados!", HttpStatus.NOT_FOUND.value()));
         }
         return ResponseEntity.ok(service.listaMunicipios());
     }
@@ -62,7 +63,8 @@ public class MunicipioController {
                 }
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro("Não foi possível realizar a operação!", 400));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro("Não foi possível realizar a" +
+                    " operação!", 400));
         }
     }
 
