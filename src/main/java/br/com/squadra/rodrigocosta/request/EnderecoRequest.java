@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 
 public class EnderecoRequest {
 
+    private Long codigoEndereco;
+
     @NotNull
     private Long codigoBairro;
 
@@ -19,7 +21,7 @@ public class EnderecoRequest {
     private String nomeRua;
 
     @NotNull
-    private int numero;
+    private Long numero;
 
     @NotEmpty
     private String complemento;
@@ -30,13 +32,32 @@ public class EnderecoRequest {
     public EnderecoRequest() {
     }
 
-    public EnderecoRequest(Long codigoBairro, Long codigoPessoa, String nomeRua, int numero, String complemento, String cep) {
+    public EnderecoRequest(Long codigoBairro, Long codigoPessoa, String nomeRua, Long numero, String complemento, String cep) {
         this.codigoBairro = codigoBairro;
         this.codigoPessoa = codigoPessoa;
         this.nomeRua = nomeRua;
         this.numero = numero;
         this.complemento = complemento;
         this.cep = cep;
+    }
+
+    public EnderecoRequest(Long codigoEndereco, Long codigoBairro, Long codigoPessoa, String nomeRua,
+                           Long numero, String complemento, String cep) {
+        this.codigoEndereco = codigoEndereco;
+        this.codigoBairro = codigoBairro;
+        this.codigoPessoa = codigoPessoa;
+        this.nomeRua = nomeRua;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.cep = cep;
+    }
+
+    public Long getCodigoEndereco() {
+        return codigoEndereco;
+    }
+
+    public void setCodigoEndereco(Long codigoEndereco) {
+        this.codigoEndereco = codigoEndereco;
     }
 
     public Long getCodigoBairro() {
@@ -63,11 +84,11 @@ public class EnderecoRequest {
         this.nomeRua = nomeRua;
     }
 
-    public int getNumero() {
+    public Long getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(Long numero) {
         this.numero = numero;
     }
 

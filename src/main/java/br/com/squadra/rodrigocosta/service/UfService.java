@@ -41,7 +41,7 @@ public class UfService {
     }
 
     public List<UfResponse> listaUfsComParametro(Long codigoUf, String nome, String sigla, Long status) {
-        List<Uf> listaUfs = customRepository.find(codigoUf, nome, sigla, status);
+        List<Uf> listaUfs = customRepository.busca(codigoUf, nome, sigla, status);
         List<UfResponse> listaUfResponse = new ArrayList<>();
         for (Uf uf : listaUfs) {
             listaUfResponse.add(UfResponse.toResponse(uf));
@@ -49,7 +49,7 @@ public class UfService {
         return listaUfResponse;
     }
 
-    public List<Uf> atualizaUf(UfRequest ufRequest) {
+    public List<Uf> atualizaUf(UfRequest ufRequest) throws Exception {
         Optional<Uf> ufBuscada = repository.findById(ufRequest.getCodigoUf());
         if (ufBuscada.isPresent()) {
             ufBuscada.get().setNome(ufRequest.getNome());
@@ -58,7 +58,7 @@ public class UfService {
             repository.save(ufBuscada.get());
             return repository.findAll();
         } else {
-            throw new NullPointerException("Não foi possível encontrar nenhuma UF no banco de dados com o codigoUf" + " referenciado!");
+            throw new Exception();
         }
     }
 }

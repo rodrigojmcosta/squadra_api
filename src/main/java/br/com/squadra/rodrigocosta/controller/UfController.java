@@ -1,6 +1,7 @@
 package br.com.squadra.rodrigocosta.controller;
 
 
+import br.com.squadra.rodrigocosta.handler.Erro;
 import br.com.squadra.rodrigocosta.request.UfRequest;
 import br.com.squadra.rodrigocosta.response.UfResponse;
 import br.com.squadra.rodrigocosta.service.UfService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,13 +22,8 @@ public class UfController {
 
     @PostMapping(value = "/uf")
     public ResponseEntity<?> cadastrarUf(@RequestBody @Validated UfRequest ufRequest) {
-        try {
-            service.cadastrarUf(ufRequest);
-            service.listaUfs();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
-        }
-        return ResponseEntity.ok().build();
+        service.cadastrarUf(ufRequest);
+        return ResponseEntity.ok(service.listaUfs());
     }
 
     @GetMapping(value = "/uf")
@@ -37,19 +34,19 @@ public class UfController {
         if (codigoUf == null && nome == null && sigla == null && status == null) {
             List<UfResponse> listaUfsResponse = service.listaUfs();
             if (listaUfsResponse.isEmpty()) {
-                return null; //ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não existe nenhuma UF
-                // cadastrada no banco de dados!");
+                return ResponseEntity.ok().body(new ArrayList<>());
             } else {
                 return ResponseEntity.ok().body(listaUfsResponse);
             }
         } else {
             List<UfResponse> listaUfsResponse = service.listaUfsComParametro(codigoUf, nome, sigla, status);
-            if (listaUfsResponse.isEmpty()) {
-                return null; //ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não existe nenhuma UF cadastrada
-                // no banco de dados" + " que corresponde aos valores que foram passados!");
-            } else if (codigoUf != null && nome == null && sigla == null && status == null) {
-                return ResponseEntity.ok(listaUfsResponse.stream().findFirst().get()); //Retorna apenas um único
-                // objeto
+            if (codigoUf != null && nome == null && sigla == null && status == null) {
+                if (listaUfsResponse.isEmpty()) {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Erro("Não foi possível encontrar nenhuma UF com este código!", HttpStatus.NOT_FOUND.value()));
+                }
+                return ResponseEntity.ok(listaUfsResponse.stream().findFirst().get()); //Retorna apenas um objeto
+            } else if (listaUfsResponse.isEmpty()) {
+                return ResponseEntity.ok().body(new ArrayList<>());
             } else {
                 return ResponseEntity.ok().body(listaUfsResponse);
             }
@@ -60,8 +57,8 @@ public class UfController {
     public ResponseEntity<?> atualizaUf(@RequestBody @Validated UfRequest ufRequest) {
         try {
             return ResponseEntity.ok(service.atualizaUf(ufRequest));
-        } catch (NullPointerException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Erro("Não foi possível alterar o registro no banco de dados!", HttpStatus.NOT_FOUND.value()));
         }
     }
 

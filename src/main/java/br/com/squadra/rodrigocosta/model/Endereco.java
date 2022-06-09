@@ -24,7 +24,7 @@ public class Endereco {
     private String nomeRua;
 
     @Column(name = "NUMERO")
-    private int numero;
+    private Long numero;
 
     @Column(name = "COMPLEMENTO")
     private String complemento;
@@ -36,7 +36,7 @@ public class Endereco {
 
     }
 
-    public Endereco(Bairro bairro, Pessoa pessoa, String nomeRua, int numero, String complemento, String cep) {
+    public Endereco(Bairro bairro, Pessoa pessoa, String nomeRua, Long numero, String complemento, String cep) {
         this.bairro = bairro;
         this.pessoa = pessoa;
         this.nomeRua = nomeRua;
@@ -45,7 +45,7 @@ public class Endereco {
         this.cep = cep;
     }
 
-    public Endereco(Bairro bairro, String nomeRua, int numero, String complemento, String cep) {
+    public Endereco(Bairro bairro, String nomeRua, Long numero, String complemento, String cep) {
         this.bairro = bairro;
         this.nomeRua = nomeRua;
         this.numero = numero;
@@ -81,11 +81,11 @@ public class Endereco {
         this.nomeRua = nomeRua;
     }
 
-    public int getNumero() {
+    public Long getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(Long numero) {
         this.numero = numero;
     }
 

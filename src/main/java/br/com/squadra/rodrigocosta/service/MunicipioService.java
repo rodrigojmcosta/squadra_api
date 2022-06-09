@@ -30,7 +30,7 @@ public class MunicipioService {
         }
     }
 
-    public Municipio findMunicipioById(Long codigoMunicipio) {
+    public Municipio encontraMunicipioPorCodigoMunicipio(Long codigoMunicipio) {
         Optional<Municipio> municipioBuscado = repository.findById(codigoMunicipio);
         return municipioBuscado.orElse(null);
     }
@@ -44,8 +44,8 @@ public class MunicipioService {
         return listaMunicipioResponse;
     }
 
-    public List<MunicipioResponse>  listaMunicipiosComParametro(Long codigoMunicipio, Long codigoUf, String nome, Long status) {
-        List<Municipio> listaMunicipios = customRepository.find(codigoMunicipio, codigoUf, nome, status);
+    public List<MunicipioResponse> listaMunicipiosComParametro(Long codigoMunicipio, Long codigoUf, String nome, Long status) {
+        List<Municipio> listaMunicipios = customRepository.busca(codigoMunicipio, codigoUf, nome, status);
         List<MunicipioResponse> listaMunicipioResponse = new ArrayList<>();
         for (Municipio municipio : listaMunicipios) {
             listaMunicipioResponse.add(MunicipioResponse.toResponse(municipio));
@@ -53,14 +53,19 @@ public class MunicipioService {
         return listaMunicipioResponse;
     }
 
-    public List<Municipio> atualizaMunicipio(MunicipioRequest municipioRequest, Uf ufMunicipio) {
+    public List<MunicipioResponse> atualizaMunicipio(MunicipioRequest municipioRequest, Uf ufMunicipio) {
         Optional<Municipio> municipioBuscado = repository.findById(municipioRequest.getCodigoMunicipio());
         if (municipioBuscado.isPresent() && ufMunicipio != null) {
             municipioBuscado.get().setNome(municipioRequest.getNome());
-            municipioBuscado.get().setCodigoUf(municipioRequest.getCodigoUf());
             municipioBuscado.get().setStatus(municipioRequest.getStatus());
+            municipioBuscado.get().setUf(ufMunicipio);
             repository.save(municipioBuscado.get());
-            return repository.findAll();
+            List<Municipio> municipios = repository.findAll();
+            List<MunicipioResponse> municipiosResponse = new ArrayList<>();
+            for (Municipio municipio : municipios) {
+                municipiosResponse.add(MunicipioResponse.toPutResponse(municipio));
+            }
+            return municipiosResponse;
         } else {
             throw new NullPointerException("Não foi possível encontrar nenhum municipio no banco de dados com o codigoMunicipio" + " referenciado!");
         }

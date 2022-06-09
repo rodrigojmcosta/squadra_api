@@ -3,12 +3,12 @@ package br.com.squadra.rodrigocosta.model;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "TB_BAIRRO")
+@Table(name = "TB_BAIRRO")
 public class Bairro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQUENCE_BAIRRO")
-    @SequenceGenerator(name="SEQUENCE_BAIRRO", sequenceName="SEQUENCE_BAIRRO", allocationSize = 1)
+    @SequenceGenerator(name = "SEQUENCE_BAIRRO", sequenceName = "SEQUENCE_BAIRRO", allocationSize = 1)
     @Column(name = "CODIGO_BAIRRO")
     private Long codigoBairro;
 
@@ -20,13 +20,13 @@ public class Bairro {
     private String nome;
 
     @Column(name = "STATUS")
-    private int status;
+    private Long status;
 
-    public Bairro () {
+    public Bairro() {
 
     }
 
-    public Bairro(Municipio municipio, String nome, int status) {
+    public Bairro(Municipio municipio, String nome, Long status) {
         this.municipio = municipio;
         this.nome = nome;
         this.status = status;
@@ -48,11 +48,11 @@ public class Bairro {
         this.nome = nome;
     }
 
-    public int getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 
@@ -68,5 +68,8 @@ public class Bairro {
                 ", nome='" + nome + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    public void setCodigoMunicipioBairro(Long codigoMunicipio) {
     }
 }

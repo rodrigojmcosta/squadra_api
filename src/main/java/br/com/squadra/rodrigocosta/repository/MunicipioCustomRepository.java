@@ -16,7 +16,7 @@ public class MunicipioCustomRepository {
         this.em = em;
     }
 
-    public List<Municipio> find(Long codigoMunicipio, Long codigoUf, String nome, Long status) {
+    public List<Municipio> busca(Long codigoMunicipio, Long codigoUf, String nome, Long status) {
 
         String queryComParametros = "SELECT * FROM TB_MUNICIPIO ";
         String querySemParametros = "SELECT * FROM TB_MUNICIPIO";
@@ -65,6 +65,10 @@ public class MunicipioCustomRepository {
 
         return q.getResultList();
 
+    }
+
+    public List<Municipio> altera() {
+        return null;
     }
 
 }

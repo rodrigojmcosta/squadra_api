@@ -4,10 +4,11 @@ import br.com.squadra.rodrigocosta.model.Pessoa;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class PessoaRequest {
+
+    private Long codigoPessoa;
 
     @NotBlank
     private String nome;
@@ -15,8 +16,7 @@ public class PessoaRequest {
     @NotBlank
     private String sobrenome;
 
-    @NotNull
-    private int idade;
+    private Long idade;
 
     @NotBlank
     private String login;
@@ -24,8 +24,7 @@ public class PessoaRequest {
     @NotBlank
     private String senha;
 
-    @NotNull
-    private int status;
+    private Long status;
 
     @NotEmpty
     private List<EnderecoRequest> enderecos;
@@ -33,7 +32,7 @@ public class PessoaRequest {
     public PessoaRequest() {
     }
 
-    public PessoaRequest(String nome, String sobrenome, int idade, String login, String senha, int status, List<EnderecoRequest> enderecos) {
+    public PessoaRequest(String nome, String sobrenome, Long idade, String login, String senha, Long status, List<EnderecoRequest> enderecos) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.idade = idade;
@@ -41,6 +40,26 @@ public class PessoaRequest {
         this.senha = senha;
         this.status = status;
         this.enderecos = enderecos;
+    }
+
+    public PessoaRequest(Long codigoPessoa, String nome, String sobrenome, Long idade, String login, String senha,
+                         Long status, List<EnderecoRequest> enderecos) {
+        this.codigoPessoa = codigoPessoa;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.idade = idade;
+        this.login = login;
+        this.senha = senha;
+        this.status = status;
+        this.enderecos = enderecos;
+    }
+
+    public Long getCodigoPessoa() {
+        return codigoPessoa;
+    }
+
+    public void setCodigoPessoa(Long codigoPessoa) {
+        this.codigoPessoa = codigoPessoa;
     }
 
     public String getNome() {
@@ -59,11 +78,11 @@ public class PessoaRequest {
         this.sobrenome = sobrenome;
     }
 
-    public int getIdade() {
+    public Long getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(Long idade) {
         this.idade = idade;
     }
 
@@ -83,11 +102,11 @@ public class PessoaRequest {
         this.senha = senha;
     }
 
-    public int getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 

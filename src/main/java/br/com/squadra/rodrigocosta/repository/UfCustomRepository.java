@@ -15,7 +15,7 @@ public class UfCustomRepository {
         this.em = em;
     }
 
-    public List<Uf> find(Long codigoUf, String nome, String sigla, Long status) {
+    public List<Uf> busca(Long codigoUf, String nome, String sigla, Long status) {
 
         String querySemParametros = "SELECT * FROM TB_UF";
         String queryComParametros = "SELECT * FROM TB_UF ";

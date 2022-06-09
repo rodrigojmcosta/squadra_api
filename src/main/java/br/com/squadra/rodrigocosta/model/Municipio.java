@@ -15,7 +15,6 @@ public class Municipio {
     @Column(name = "CODIGO_MUNICIPIO")
     private Long codigoMunicipio;
 
-    //@ManyToOne (targetEntity = Uf.class)
     @ManyToOne
     @JoinColumn(name = "CODIGO_UF")
     private Uf uf;
@@ -23,7 +22,8 @@ public class Municipio {
     @Column(name = "NOME")
     private String nome;
 
-    @OneToMany(mappedBy = "municipio")
+    @OneToMany(mappedBy = "municipio", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Bairro> bairros;
 
     @Column(name = "STATUS")
@@ -75,10 +75,6 @@ public class Municipio {
         return codigoMunicipio;
     }
 
-    public Long getCodigoUf() {
-        return uf.getCodigoUf();
-    }
-
     @Override
     public String toString() {
         return "{" +
@@ -89,7 +85,4 @@ public class Municipio {
                 '}';
     }
 
-    public void setCodigoUf(Long codigoUf) {
-        this.uf.setCodigoUfMunicipio(codigoUf);
-    }
 }

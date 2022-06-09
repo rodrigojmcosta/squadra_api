@@ -39,7 +39,7 @@ public class UfResponse {
     }
 
     public static UfResponse toResponse(Uf uf) {
-        return new UfResponse(uf.getCodigoUf(), uf.getNome(), uf.getSigla(), uf.getStatus());
+        return new UfResponse(uf.getCodigoUf(), uf. getNome(), uf.getSigla(), uf.getStatus());
     }
 
 }

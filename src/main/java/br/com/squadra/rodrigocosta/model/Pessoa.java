@@ -1,8 +1,6 @@
 package br.com.squadra.rodrigocosta.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "TB_PESSOA")
@@ -21,7 +19,7 @@ public class Pessoa {
     private String sobrenome;
 
     @Column(name = "IDADE")
-    private int idade;
+    private Long idade;
 
     @Column(name = "LOGIN")
     private String login;
@@ -30,13 +28,13 @@ public class Pessoa {
     private String senha;
 
     @Column(name = "STATUS")
-    private int status;
+    private Long status;
 
     public Pessoa() {
 
     }
 
-    public Pessoa(String nome, String sobrenome, int idade, String login, String senha, int status) {
+    public Pessoa(String nome, String sobrenome, Long idade, String login, String senha, Long status) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.idade = idade;
@@ -61,11 +59,11 @@ public class Pessoa {
         this.sobrenome = sobrenome;
     }
 
-    public int getIdade() {
+    public Long getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(Long idade) {
         this.idade = idade;
     }
 
@@ -85,11 +83,11 @@ public class Pessoa {
         this.senha = senha;
     }
 
-    public int getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 

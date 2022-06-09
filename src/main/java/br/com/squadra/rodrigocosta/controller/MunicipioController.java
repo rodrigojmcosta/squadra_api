@@ -1,5 +1,6 @@
 package br.com.squadra.rodrigocosta.controller;
 
+import br.com.squadra.rodrigocosta.handler.Erro;
 import br.com.squadra.rodrigocosta.model.Uf;
 import br.com.squadra.rodrigocosta.request.MunicipioRequest;
 import br.com.squadra.rodrigocosta.response.MunicipioResponse;
@@ -28,7 +29,7 @@ public class MunicipioController {
         try {
             service.salvaMunicipio(municipioRequest, ufMunicipio);
         } catch (NullPointerException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Erro("Não foi possível cadastrar o município no banco de dados!", HttpStatus.NOT_FOUND.value()));
         }
         return ResponseEntity.ok(service.listaMunicipios());
     }
@@ -38,31 +39,35 @@ public class MunicipioController {
                                                          @RequestParam(required = false) Long codigoUf,
                                                          @RequestParam(required = false) String nome,
                                                          @RequestParam(required = false) Long status) {
-        if (codigoMunicipio == null && codigoUf == null && nome == null && status == null) {
-            List<MunicipioResponse> listaMunicipiosResponse = service.listaMunicipios();
-            if (listaMunicipiosResponse.isEmpty()) {
-                return null; //ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não existe nenhum municipio
-                // cadastrado no banco de dados!");
+        try {
+            if (codigoMunicipio == null && codigoUf == null && nome == null && status == null) {
+                List<MunicipioResponse> listaMunicipiosResponse = service.listaMunicipios();
+                if (listaMunicipiosResponse.isEmpty()) {
+                    return null; //ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não existe nenhum municipio
+                    // cadastrado no banco de dados!");
+                } else {
+                    return ResponseEntity.ok().body(listaMunicipiosResponse);
+                }
             } else {
-                return ResponseEntity.ok().body(listaMunicipiosResponse);
+                List<MunicipioResponse> listaMunicipiosResponse = service.listaMunicipiosComParametro(codigoMunicipio,
+                        codigoUf, nome, status);
+                if (listaMunicipiosResponse.isEmpty()) {
+                    return null; //ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não existe nenum municipio
+                    // cadastrado
+                    // no banco de dados" + " que corresponde aos valores que foram passados!");
+                } else if (codigoMunicipio != null && codigoUf == null && nome == null && status == null) {
+                    return ResponseEntity.ok(listaMunicipiosResponse.stream().findFirst().get());
+                } else {
+                    return ResponseEntity.ok().body(listaMunicipiosResponse);
+                }
             }
-        } else {
-            List<MunicipioResponse> listaMunicipiosResponse = service. listaMunicipiosComParametro(codigoMunicipio,
-                    codigoUf, nome, status);
-            if (listaMunicipiosResponse.isEmpty()) {
-                return null; //ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não existe nenum municipio
-                // cadastrado
-                // no banco de dados" + " que corresponde aos valores que foram passados!");
-            } else if (codigoMunicipio != null && codigoUf == null && nome == null && status == null) {
-                return ResponseEntity.ok(listaMunicipiosResponse.stream().findFirst().get());
-            } else {
-                return ResponseEntity.ok().body(listaMunicipiosResponse);
-            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro("Não foi possível realizar a operação!", 400));
         }
     }
 
     @PutMapping(value = "/municipio")
-    public ResponseEntity<?> atualizaMunicipio(@RequestBody MunicipioRequest municipioRequest) {
+    public ResponseEntity<?> alteraMunicipio(@RequestBody MunicipioRequest municipioRequest) {
         Uf ufMunicipio = ufService.encontraUfPorCodigoUf(municipioRequest.getCodigoUf());
         try {
             return ResponseEntity.ok(service.atualizaMunicipio(municipioRequest, ufMunicipio));

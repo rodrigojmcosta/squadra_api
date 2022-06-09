@@ -13,12 +13,6 @@ public class Uf {
     @Column(name = "CODIGO_UF")
     private Long codigoUf;
 
-    public void setCodigoUfMunicipio(Long codigoUfMunicipio) {
-        this.codigoUfMunicipio = codigoUfMunicipio;
-    }
-
-    private Long codigoUfMunicipio;
-
     @Column(name = "NOME")
     private String nome;
 
