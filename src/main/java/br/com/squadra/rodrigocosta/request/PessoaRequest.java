@@ -10,29 +10,30 @@ public class PessoaRequest {
 
     private Long codigoPessoa;
 
-    @NotBlank
+    @NotBlank(message = "O nome da pessoa não pode estar vazio!")
     private String nome;
 
-    @NotBlank
+    @NotBlank(message = "O sobrenome da pessoa não pode ser vazio!")
     private String sobrenome;
 
     private Long idade;
 
-    @NotBlank
+    @NotBlank(message = "O login da pessoa não pode ser vazio!")
     private String login;
 
-    @NotBlank
+    @NotBlank(message = "O senha da pessoa não pode ser vazio!")
     private String senha;
 
     private Long status;
 
-    @NotEmpty
+    @NotEmpty(message = "A pessoa precisa ter pelo menos um endereço válido!")
     private List<EnderecoRequest> enderecos;
 
     public PessoaRequest() {
     }
 
-    public PessoaRequest(String nome, String sobrenome, Long idade, String login, String senha, Long status, List<EnderecoRequest> enderecos) {
+    public PessoaRequest(String nome, String sobrenome, Long idade, String login, String senha, Long status,
+                         List<EnderecoRequest> enderecos) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.idade = idade;

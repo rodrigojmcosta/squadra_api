@@ -11,22 +11,22 @@ public class EnderecoRequest {
 
     private Long codigoEndereco;
 
-    @NotNull
+    @NotNull(message = "O código do bairro não pode ser vazio!")
     private Long codigoBairro;
 
-    @NotNull
+    @NotNull(message = "O código da pessoa não pode ser vazio!")
     private Long codigoPessoa;
 
-    @NotEmpty
+    @NotEmpty(message = "O nome da rua não pode ser vazio!")
     private String nomeRua;
 
-    @NotNull
+    @NotNull(message = "O número da rua não pode ser vazio!")
     private Long numero;
 
-    @NotEmpty
+    @NotEmpty(message = "O complemento do endereço não pode ser vazio!")
     private String complemento;
 
-    @NotEmpty
+    @NotEmpty(message = "O cep do endereço não pode ser vazio!")
     private String cep;
 
     public EnderecoRequest() {

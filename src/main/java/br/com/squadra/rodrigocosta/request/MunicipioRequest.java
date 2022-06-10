@@ -1,5 +1,7 @@
 package br.com.squadra.rodrigocosta.request;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -7,13 +9,15 @@ public class MunicipioRequest {
 
     private Long codigoMunicipio;
 
-    @NotNull
+    @NotNull(message = "O código da UF não pode ser vazio!")
     private Long codigoUf;
 
-    @NotBlank
+    @NotBlank(message = "O nome do município não pode ser vazio!")
     private String nome;
 
-    @NotNull
+    @NotNull(message = "O status do município não pode ser vazio!")
+    @Min(value = 1, message = "O campo STATUS deve estar entre 1 e 2!")
+    @Max(value = 2, message = "O campo STATUS deve estar entre 1 e 2!")
     private Long status;
 
     public MunicipioRequest() {
