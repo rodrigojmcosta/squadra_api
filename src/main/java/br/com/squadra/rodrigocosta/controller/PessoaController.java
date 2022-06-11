@@ -54,11 +54,15 @@ public class PessoaController {
             listaPessoaResponse = service.listaPessoasComParametro(codigoPessoa, idade, login, nome,
                     senha, sobrenome, status);
             if (listaPessoaResponse.isEmpty()) {
-                return ResponseEntity.ok().body(listaPessoaResponse);
+                return ResponseEntity.ok(listaPessoaResponse);
+            } else if (codigoPessoa != null) {
+                return ResponseEntity.ok(listaPessoaResponse.stream().findFirst().get());
+            } else if (status != null) {
+                return ResponseEntity.ok(listaPessoaResponse);
             } else if (listaPessoaResponse.size() == 1) {
                 return ResponseEntity.ok(listaPessoaResponse.stream().findFirst().get());
             } else {
-                return ResponseEntity.ok().body(listaPessoaResponse);
+                return ResponseEntity.ok(listaPessoaResponse);
             }
         }
     }
