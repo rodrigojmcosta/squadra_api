@@ -36,6 +36,10 @@ public class PessoaResponse {
     public PessoaResponse() {
     }
 
+    public PessoaResponse(Long codigoPessoa) {
+        this.codigoPessoa = codigoPessoa;
+    }
+
     public PessoaResponse(Long codigoPessoa, String nome, String sobrenome, Long idade, String login, String senha,
                           Long status) {
         this.codigoPessoa = codigoPessoa;

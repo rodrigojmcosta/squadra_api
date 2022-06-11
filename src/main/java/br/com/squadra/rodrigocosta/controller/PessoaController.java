@@ -2,6 +2,7 @@ package br.com.squadra.rodrigocosta.controller;
 
 import br.com.squadra.rodrigocosta.handler.Erro;
 import br.com.squadra.rodrigocosta.request.PessoaRequest;
+import br.com.squadra.rodrigocosta.response.EnderecoResponse;
 import br.com.squadra.rodrigocosta.response.PessoaResponse;
 import br.com.squadra.rodrigocosta.service.EnderecoService;
 import br.com.squadra.rodrigocosta.service.PessoaService;
@@ -54,7 +55,11 @@ public class PessoaController {
             listaPessoaResponse = service.listaPessoasComParametro(codigoPessoa, idade, login, nome,
                     senha, sobrenome, status);
             if (listaPessoaResponse.isEmpty()) {
-                return ResponseEntity.ok(listaPessoaResponse);
+                if (codigoPessoa != null) {
+                    return ResponseEntity.ok(new EnderecoResponse());
+                } else {
+                    return ResponseEntity.ok(listaPessoaResponse);
+                }
             } else if (codigoPessoa != null) {
                 return ResponseEntity.ok(listaPessoaResponse.stream().findFirst().get());
             } else if (status != null) {
