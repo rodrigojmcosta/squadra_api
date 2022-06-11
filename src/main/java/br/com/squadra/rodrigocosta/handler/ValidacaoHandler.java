@@ -18,7 +18,8 @@ public class ValidacaoHandler extends ResponseEntityExceptionHandler {
     // Aqui daremos override (sobreescreveremos, ou seja, implementaremos) na handleMethodArgumentNotValid
     // Pois essa é a exceção que estoura quando as validações de campos como @NotNull são violadas.
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
+                                                                  HttpStatus status, WebRequest request) {
         // Aqui estamos tentando resgatar a Default Message (mensagem que passamos como parâmetro nos métodos de validação)
         // o getDefaultMessage() pode retornar nulo, portanto, temos que usar um try/catch para tratarmos essa exceção
         String mensagem = "";

@@ -10,7 +10,7 @@ public class MunicipioRequest {
     private Long codigoMunicipio;
 
     @NotNull(message = "O código da UF não pode ser vazio!")
-    private Long codigoUf;
+    private Long codigoUF;
 
     @NotBlank(message = "O nome do município não pode ser vazio!")
     private String nome;
@@ -23,15 +23,15 @@ public class MunicipioRequest {
     public MunicipioRequest() {
     }
 
-    public MunicipioRequest(Long codigoUf, String nome, Long status) {
-        this.codigoUf = codigoUf;
+    public MunicipioRequest(Long codigoUF, String nome, Long status) {
+        this.codigoUF = codigoUF;
         this.nome = nome;
         this.status = status;
     }
 
-    public MunicipioRequest(Long codigoMunicipio, Long codigoUf, String nome, Long status) {
+    public MunicipioRequest(Long codigoMunicipio, Long codigoUF, String nome, Long status) {
         this.codigoMunicipio = codigoMunicipio;
-        this.codigoUf = codigoUf;
+        this.codigoUF = codigoUF;
         this.nome = nome;
         this.status = status;
     }
@@ -40,12 +40,12 @@ public class MunicipioRequest {
         return codigoMunicipio;
     }
 
-    public Long getCodigoUf() {
-        return codigoUf;
+    public Long getCodigoUF() {
+        return codigoUF;
     }
 
-    public void setCodigoUf(Long codigoUf) {
-        this.codigoUf = codigoUf;
+    public void setCodigoUF(Long codigoUF) {
+        this.codigoUF = codigoUF;
     }
 
     public String getNome() {

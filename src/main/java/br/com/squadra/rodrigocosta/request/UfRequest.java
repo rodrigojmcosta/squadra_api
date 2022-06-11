@@ -1,13 +1,13 @@
 package br.com.squadra.rodrigocosta.request;
 
 import br.com.squadra.rodrigocosta.model.Uf;
-import org.springframework.util.Assert;
 
 import javax.validation.constraints.*;
 
 public class UfRequest {
 
-    private Long codigoUf;
+
+    private Long codigoUF;
 
     @NotBlank(message = "O campo NOME não pode ser vazio!")
     private String nome;
@@ -23,8 +23,8 @@ public class UfRequest {
     public UfRequest() {
     }
 
-    public UfRequest(Long codigoUf, String nome, String sigla, Long status) {
-        this.codigoUf = codigoUf;
+    public UfRequest(Long codigoUF, String nome, String sigla, Long status) {
+        this.codigoUF = codigoUF;
         this.nome = nome;
         this.sigla = sigla;
         this.status = status;
@@ -36,12 +36,12 @@ public class UfRequest {
         this.status = status;
     }
 
-    public Long getCodigoUf() {
-        return codigoUf;
+    public Long getCodigoUF() {
+        return codigoUF;
     }
 
-    public void setCodigoUf(Long codigoUf) {
-        this.codigoUf = codigoUf;
+    public void setCodigoUF(Long codigoUF) {
+        this.codigoUF = codigoUF;
     }
 
     public String getNome() {

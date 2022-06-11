@@ -2,6 +2,7 @@ package br.com.squadra.rodrigocosta.controller;
 
 
 import br.com.squadra.rodrigocosta.handler.Erro;
+import br.com.squadra.rodrigocosta.model.Uf;
 import br.com.squadra.rodrigocosta.request.UfRequest;
 import br.com.squadra.rodrigocosta.response.UfResponse;
 import br.com.squadra.rodrigocosta.service.UfService;
@@ -27,29 +28,33 @@ public class UfController {
     }
 
     @GetMapping(value = "/uf")
-    public ResponseEntity<?> listaUfsComParametros(@RequestParam(required = false) Long codigoUf,
+    public ResponseEntity<?> listaUfsComParametros(@RequestParam(required = false) Long codigoUF,
                                                    @RequestParam(required = false) String nome,
                                                    @RequestParam(required = false) String sigla,
                                                    @RequestParam(required = false) Long status) {
-        if (codigoUf == null && nome == null && sigla == null && status == null) {
-            List<UfResponse> listaUfsResponse = service.listaUfs();
+        List<UfResponse> listaUfsResponse = new ArrayList<>();
+        if (codigoUF == null && nome == null && sigla == null && status == null) {
+            listaUfsResponse = service.listaUfs();
             if (listaUfsResponse.isEmpty()) {
                 return ResponseEntity.ok().body(new ArrayList<>());
             } else {
                 return ResponseEntity.ok().body(listaUfsResponse);
             }
-        } else {
-            List<UfResponse> listaUfsResponse = service.listaUfsComParametro(codigoUf, nome, sigla, status);
-            if (codigoUf != null && nome == null && sigla == null && status == null) {
-                if (listaUfsResponse.isEmpty()) {
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Erro("Não foi possível encontrar" +
-                            " nenhuma UF com este código!", HttpStatus.NOT_FOUND.value()));
-                }
-                return ResponseEntity.ok(listaUfsResponse.stream().findFirst().get()); //Retorna apenas um objeto
-            } else if (listaUfsResponse.isEmpty()) {
-                return ResponseEntity.ok().body(new ArrayList<>());
+        } else if (codigoUF == null && nome == null && sigla == null && status != null) {
+            listaUfsResponse = service.listaUfsComParametro(codigoUF, nome, sigla, status);
+            if (listaUfsResponse.isEmpty()) {
+                return ResponseEntity.ok(new ArrayList<>());
             } else {
-                return ResponseEntity.ok().body(listaUfsResponse);
+                return ResponseEntity.ok(listaUfsResponse);
+            }
+        } else {
+            listaUfsResponse = service.listaUfsComParametro(codigoUF, nome, sigla, status);
+            if (listaUfsResponse.isEmpty()) {
+                return ResponseEntity.ok(new UfResponse());
+            } else if (listaUfsResponse.size() == 1) {
+                return ResponseEntity.ok(listaUfsResponse.stream().findFirst().get()); //Retorna apenas um objeto
+            } else {
+                return ResponseEntity.ok(listaUfsResponse);
             }
         }
     }

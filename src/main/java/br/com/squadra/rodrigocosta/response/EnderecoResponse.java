@@ -2,23 +2,32 @@ package br.com.squadra.rodrigocosta.response;
 
 import br.com.squadra.rodrigocosta.model.Bairro;
 import br.com.squadra.rodrigocosta.model.Endereco;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class EnderecoResponse {
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long codigoEndereco;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long codigoBairro;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long codigoPessoa;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String nomeRua;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long numero;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String complemento;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String cep;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private BairroResponse bairro;
 
 

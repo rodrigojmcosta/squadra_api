@@ -16,7 +16,7 @@ public class MunicipioCustomRepository {
         this.em = em;
     }
 
-    public List<Municipio> busca(Long codigoMunicipio, Long codigoUf, String nome, Long status) {
+    public List<Municipio> busca(Long codigoMunicipio, Long codigoUF, String nome, Long status) {
 
         String queryComParametros = "SELECT * FROM TB_MUNICIPIO ";
         String querySemParametros = "SELECT * FROM TB_MUNICIPIO";
@@ -27,8 +27,8 @@ public class MunicipioCustomRepository {
             condicao = " AND ";
         }
 
-        if (codigoUf != null) {
-            queryComParametros += condicao + " CODIGO_UF = :codigoUf";
+        if (codigoUF != null) {
+            queryComParametros += condicao + " CODIGO_UF = :codigoUF";
             condicao = " AND ";
         }
 
@@ -43,7 +43,7 @@ public class MunicipioCustomRepository {
 
         var q = em.createNativeQuery(queryComParametros, Municipio.class);
 
-        if (codigoMunicipio == null && codigoUf == null && nome == null && status == null) {
+        if (codigoMunicipio == null && codigoUF == null && nome == null && status == null) {
             return em.createQuery(querySemParametros, Municipio.class).getResultList();
         }
 
@@ -51,8 +51,8 @@ public class MunicipioCustomRepository {
             q.setParameter("codigoMunicipio", codigoMunicipio);
         }
 
-        if (codigoUf != null) {
-            q.setParameter("codigoUf", codigoUf);
+        if (codigoUF != null) {
+            q.setParameter("codigoUF", codigoUF);
         }
 
         if (nome != null) {

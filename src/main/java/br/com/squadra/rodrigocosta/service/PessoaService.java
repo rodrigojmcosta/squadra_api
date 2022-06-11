@@ -43,7 +43,7 @@ public class PessoaService {
     UfRepository ufRepository;
 
 
-    public void salvaPessoaComEnderecos(PessoaRequest pessoaRequest) {
+    public List<PessoaResponse> salvaPessoaComEnderecos(PessoaRequest pessoaRequest) {
         Pessoa pessoaSeraSalva = PessoaRequest.toModel(pessoaRequest);
         Pessoa pessoaSalva = pessoaRepository.save(pessoaSeraSalva);
         List<Endereco> listaEnderecosPessoaSalva = new ArrayList<>();
@@ -52,6 +52,9 @@ public class PessoaService {
                     getBairro(enderecoRequest.getCodigoBairro())));
         }
         enderecoRepository.saveAll(listaEnderecosPessoaSalva);
+        List<Pessoa> pessoas = pessoaRepository.findAll();
+        List<PessoaResponse> pessoaResponseList = PessoaResponse.toPutResponse(pessoas);
+        return pessoaResponseList;
     }
 
     private Bairro getBairro(Long codigoBairro) {

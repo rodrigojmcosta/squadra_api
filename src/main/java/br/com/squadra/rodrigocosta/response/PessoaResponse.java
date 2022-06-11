@@ -2,27 +2,35 @@ package br.com.squadra.rodrigocosta.response;
 
 import br.com.squadra.rodrigocosta.model.Endereco;
 import br.com.squadra.rodrigocosta.model.Pessoa;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PessoaResponse {
 
-
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long codigoPessoa;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long idade;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String login;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String nome;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String senha;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String sobrenome;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<EnderecoResponse> enderecos = new ArrayList<>();
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long status;
 
     public PessoaResponse() {

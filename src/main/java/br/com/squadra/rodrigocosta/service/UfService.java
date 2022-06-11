@@ -26,8 +26,8 @@ public class UfService {
     }
 
 
-    public Uf encontraUfPorCodigoUf(Long codigoUf) {
-        Optional<Uf> ufBuscada = repository.findById(codigoUf);
+    public Uf encontraUfPorCodigoUf(Long codigoUF) {
+        Optional<Uf> ufBuscada = repository.findById(codigoUF);
         return ufBuscada.orElse(null); //Método retorna a Uf que foi buscada e, caso não exista, retorna nulo.
     }
 
@@ -50,7 +50,7 @@ public class UfService {
     }
 
     public List<Uf> atualizaUf(UfRequest ufRequest) throws Exception {
-        Optional<Uf> ufBuscada = repository.findById(ufRequest.getCodigoUf());
+        Optional<Uf> ufBuscada = repository.findById(ufRequest.getCodigoUF());
         if (ufBuscada.isPresent()) {
             ufBuscada.get().setNome(ufRequest.getNome());
             ufBuscada.get().setSigla(ufRequest.getSigla());

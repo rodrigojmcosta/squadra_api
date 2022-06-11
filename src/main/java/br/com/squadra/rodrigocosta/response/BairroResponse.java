@@ -6,12 +6,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BairroResponse {
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long codigoBairro;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long codigoMunicipio;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String nome;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long status;
 
     @JsonProperty("municipio")

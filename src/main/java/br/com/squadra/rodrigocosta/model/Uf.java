@@ -11,7 +11,7 @@ public class Uf {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQUENCE_UF")
     @SequenceGenerator(name = "SEQUENCE_UF", sequenceName = "SEQUENCE_UF", allocationSize = 1)
     @Column(name = "CODIGO_UF")
-    private Long codigoUf;
+    private Long codigoUF;
 
     @Column(name = "NOME")
     private String nome;
@@ -58,14 +58,14 @@ public class Uf {
         this.status = status;
     }
 
-    public Long getCodigoUf() {
-        return codigoUf;
+    public Long getCodigoUF() {
+        return codigoUF;
     }
 
     @Override
     public String toString() {
         return "{" +
-                "codigoUf=" + codigoUf +
+                "codigoUf=" + codigoUF +
                 ", nome='" + nome + '\'' +
                 ", sigla='" + sigla + '\'' +
                 ", status=" + status +

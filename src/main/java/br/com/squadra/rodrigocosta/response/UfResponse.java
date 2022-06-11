@@ -1,29 +1,34 @@
 package br.com.squadra.rodrigocosta.response;
 
 import br.com.squadra.rodrigocosta.model.Uf;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class UfResponse {
 
-    private Long codigoUf;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Long codigoUF;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String nome;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String sigla;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long status;
 
     public UfResponse() {
     }
 
-    public UfResponse(Long codigoUf, String nome, String sigla, Long status) {
-        this.codigoUf = codigoUf;
+    public UfResponse(Long codigoUF, String nome, String sigla, Long status) {
+        this.codigoUF = codigoUF;
         this.nome = nome;
         this.sigla = sigla;
         this.status = status;
     }
 
-    public Long getCodigoUf() {
-        return codigoUf;
+    public Long getCodigoUF() {
+        return codigoUF;
     }
 
     public String getNome() {
@@ -39,7 +44,7 @@ public class UfResponse {
     }
 
     public static UfResponse toResponse(Uf uf) {
-        return new UfResponse(uf.getCodigoUf(), uf. getNome(), uf.getSigla(), uf.getStatus());
+        return new UfResponse(uf.getCodigoUF(), uf. getNome(), uf.getSigla(), uf.getStatus());
     }
 
 }

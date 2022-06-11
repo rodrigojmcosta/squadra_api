@@ -79,7 +79,7 @@ public class Municipio {
     public String toString() {
         return "{" +
                 "codigoMunicipio=" + codigoMunicipio +
-                ", codigoUF=" + uf.getCodigoUf() +
+                ", codigoUF=" + uf.getCodigoUF() +
                 ", nome='" + nome + '\'' +
                 ", status=" + status +
                 '}';

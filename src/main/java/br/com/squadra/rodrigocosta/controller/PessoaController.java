@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,11 +26,11 @@ public class PessoaController {
     @PostMapping(value = "/pessoa")
     public ResponseEntity<?> cadastraPessoa(@RequestBody @Validated PessoaRequest pessoaRequest) {
         try {
-            service.salvaPessoaComEnderecos(pessoaRequest);
+            return ResponseEntity.ok(service.salvaPessoaComEnderecos(pessoaRequest));
         } catch (NullPointerException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro("Não foi possível" +
+                    " realizar a operação no banco de dados!!", HttpStatus.BAD_REQUEST.value()));
         }
-        return ResponseEntity.ok().build();
     }
 
     @GetMapping(value = "/pessoa")
@@ -40,12 +41,17 @@ public class PessoaController {
                                                       @RequestParam(required = false) String login,
                                                       @RequestParam(required = false) String senha,
                                                       @RequestParam(required = false) Long status) {
+        List<PessoaResponse> listaPessoaResponse = new ArrayList<>();
         if (codigoPessoa == null && nome == null && sobrenome == null && idade == null && login == null &&
                 senha == null && status == null) {
-            List<PessoaResponse> listaPessoaResponse = service.listaPessoas();
-            return ResponseEntity.ok().body(listaPessoaResponse);
+            listaPessoaResponse = service.listaPessoas();
+            if (listaPessoaResponse.isEmpty()) {
+                return ResponseEntity.ok(new ArrayList<>());
+            } else {
+                return ResponseEntity.ok(listaPessoaResponse);
+            }
         } else {
-            List<PessoaResponse> listaPessoaResponse = service.listaPessoasComParametro(codigoPessoa, idade, login, nome,
+            listaPessoaResponse = service.listaPessoasComParametro(codigoPessoa, idade, login, nome,
                     senha, sobrenome, status);
             if (listaPessoaResponse.isEmpty()) {
                 return ResponseEntity.ok().body(listaPessoaResponse);

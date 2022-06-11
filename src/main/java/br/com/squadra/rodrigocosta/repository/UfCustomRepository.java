@@ -15,14 +15,14 @@ public class UfCustomRepository {
         this.em = em;
     }
 
-    public List<Uf> busca(Long codigoUf, String nome, String sigla, Long status) {
+    public List<Uf> busca(Long codigoUF, String nome, String sigla, Long status) {
 
         String querySemParametros = "SELECT * FROM TB_UF";
         String queryComParametros = "SELECT * FROM TB_UF ";
         String condicao = "WHERE";
 
-        if (codigoUf != null) {
-            queryComParametros += condicao + " CODIGO_UF = :codigoUf";
+        if (codigoUF != null) {
+            queryComParametros += condicao + " CODIGO_UF = :codigoUF";
             condicao = " AND ";
         }
 
@@ -42,12 +42,12 @@ public class UfCustomRepository {
 
         var q = em.createNativeQuery(queryComParametros, Uf.class);
 
-        if (codigoUf == null && nome == null && sigla == null && status == null) {
+        if (codigoUF == null && nome == null && sigla == null && status == null) {
             return em.createQuery(querySemParametros, Uf.class).getResultList();
         }
 
-        if (codigoUf != null) {
-            q.setParameter("codigoUf", codigoUf);
+        if (codigoUF != null) {
+            q.setParameter("codigoUF", codigoUF);
         }
 
         if (nome != null) {

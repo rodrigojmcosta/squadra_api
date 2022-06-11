@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -40,38 +41,43 @@ public class BairroController {
                                                       @RequestParam(required = false) Long codigoMunicipio,
                                                       @RequestParam(required = false) String nome,
                                                       @RequestParam(required = false) Long status) {
-        try {
-            if (codigoBairro == null && codigoMunicipio == null && nome == null && status == null) {
-                List<BairroResponse> listaBairrosResponse = service.listaBairros();
-                if (listaBairrosResponse.isEmpty()) {
-                    return null; //ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não existe nenhum bairro
-                    // cadastrado no banco de dados!");
-                } else {
-                    return ResponseEntity.ok().body(listaBairrosResponse);
-                }
+        List<BairroResponse> listaBairrosResponse = new ArrayList<>();
+        if (codigoBairro == null && codigoMunicipio == null && nome == null && status == null) {
+            listaBairrosResponse = service.listaBairros();
+            if (listaBairrosResponse.isEmpty()) {
+                return ResponseEntity.ok(new ArrayList<>());
             } else {
-                List<BairroResponse> listaBairrosResponse = service.listaBairrosComParametro(codigoBairro,
-                        codigoMunicipio, nome, status);
-                BairroResponse bairroResponse = new BairroResponse();
-                if (listaBairrosResponse.isEmpty()) {
-                    return ResponseEntity.ok(listaBairrosResponse); //ResponseEntity.status(HttpStatus.BAD_REQUEST).body
-                    // ("Não existe nenum bairro
-                    // cadastrado
-                    // no banco de dados" + " que corresponde aos valores que foram passados!");
-                } else if (codigoBairro != null && codigoMunicipio == null && nome == null && status == null) {
-                    return ResponseEntity.ok(listaBairrosResponse.stream().findFirst().get());
-                } else {
-                    return ResponseEntity.ok().body(listaBairrosResponse);
-                }
+                return ResponseEntity.ok().body(listaBairrosResponse);
             }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Erro("Não foi possível realizar a " +
-                    "operação!", 400));
+        } else if (codigoBairro == null && codigoMunicipio == null && nome == null && status != null) {
+            listaBairrosResponse = service.listaBairrosComParametro(codigoBairro, codigoMunicipio, nome, status);
+            if (listaBairrosResponse.isEmpty()) {
+                return ResponseEntity.ok(new ArrayList<>());
+            } else {
+                return ResponseEntity.ok(listaBairrosResponse);
+            }
+        } else if (codigoBairro == null && codigoMunicipio != null && nome == null && status == null) {
+            listaBairrosResponse = service.listaBairrosComParametro(codigoBairro, codigoMunicipio, nome, status);
+            if (listaBairrosResponse.isEmpty()) {
+                return ResponseEntity.ok(new ArrayList<>());
+            } else {
+                return ResponseEntity.ok(listaBairrosResponse);
+            }
+        } else {
+            listaBairrosResponse = service.listaBairrosComParametro(codigoBairro,
+                    codigoMunicipio, nome, status);
+            if (listaBairrosResponse.isEmpty()) {
+                return ResponseEntity.ok(new BairroResponse());
+            } else if (listaBairrosResponse.size() == 1) {
+                return ResponseEntity.ok().body(listaBairrosResponse.stream().findFirst().get());
+            } else {
+                return ResponseEntity.ok().body(listaBairrosResponse);
+            }
         }
     }
 
     @PutMapping(value = "/bairro")
-    public ResponseEntity<?> alteraBairro(@RequestBody BairroRequest bairroRequest) {
+    public ResponseEntity<?> alteraBairro(@RequestBody @Validated BairroRequest bairroRequest) {
         Municipio municipioBairro = municipioService.encontraMunicipioPorCodigoMunicipio(bairroRequest.getCodigoMunicipio());
         try {
             return ResponseEntity.ok(service.atualizaBairro(bairroRequest, municipioBairro));
