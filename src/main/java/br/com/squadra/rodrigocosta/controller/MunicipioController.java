@@ -49,7 +49,14 @@ public class MunicipioController {
             } else {
                 return ResponseEntity.ok(listaMunicipiosResponse);
             }
-        } else if (codigoMunicipio == null && codigoUF != null && nome == null && status == null) {
+        } else if (codigoMunicipio != null) {
+            listaMunicipiosResponse = service.listaMunicipiosComParametro(codigoMunicipio, codigoUF, nome, status);
+            if (listaMunicipiosResponse.isEmpty()) {
+                return ResponseEntity.ok(new ArrayList<>());
+            } else {
+                return ResponseEntity.ok(listaMunicipiosResponse.stream().findFirst().get());
+            }
+        }else if (codigoMunicipio == null && codigoUF != null && nome == null && status == null) {
             listaMunicipiosResponse = service.listaMunicipiosComParametro(codigoMunicipio, codigoUF, nome, status);
             if (listaMunicipiosResponse.isEmpty()) {
                 return ResponseEntity.ok(new ArrayList<>());
@@ -67,9 +74,7 @@ public class MunicipioController {
             listaMunicipiosResponse = service.listaMunicipiosComParametro(codigoMunicipio,
                     codigoUF, nome, status);
             if (listaMunicipiosResponse.isEmpty()) {
-                return ResponseEntity.ok(new MunicipioResponse());
-            } else if (listaMunicipiosResponse.size() == 1) {
-                return ResponseEntity.ok(listaMunicipiosResponse.stream().findFirst().get());
+                return ResponseEntity.ok(new ArrayList<>());
             } else {
                 return ResponseEntity.ok(listaMunicipiosResponse);
             }

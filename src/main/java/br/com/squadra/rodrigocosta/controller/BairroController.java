@@ -49,7 +49,14 @@ public class BairroController {
             } else {
                 return ResponseEntity.ok().body(listaBairrosResponse);
             }
-        } else if (codigoBairro == null && codigoMunicipio == null && nome == null && status != null) {
+        } else if (codigoBairro != null) {
+            listaBairrosResponse = service.listaBairrosComParametro(codigoBairro, codigoMunicipio, nome, status);
+            if (listaBairrosResponse.isEmpty()) {
+                return ResponseEntity.ok(new ArrayList<>());
+            } else {
+                return ResponseEntity.ok(listaBairrosResponse.stream().findFirst().get());
+            }
+        }else if (codigoBairro == null && codigoMunicipio == null && nome == null && status != null) {
             listaBairrosResponse = service.listaBairrosComParametro(codigoBairro, codigoMunicipio, nome, status);
             if (listaBairrosResponse.isEmpty()) {
                 return ResponseEntity.ok(new ArrayList<>());
@@ -67,9 +74,7 @@ public class BairroController {
             listaBairrosResponse = service.listaBairrosComParametro(codigoBairro,
                     codigoMunicipio, nome, status);
             if (listaBairrosResponse.isEmpty()) {
-                return ResponseEntity.ok(new BairroResponse());
-            } else if (listaBairrosResponse.size() == 1) {
-                return ResponseEntity.ok().body(listaBairrosResponse.stream().findFirst().get());
+                return ResponseEntity.ok(new ArrayList<>());
             } else {
                 return ResponseEntity.ok().body(listaBairrosResponse);
             }

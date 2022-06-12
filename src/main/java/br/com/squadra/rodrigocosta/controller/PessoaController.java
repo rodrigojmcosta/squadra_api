@@ -56,7 +56,7 @@ public class PessoaController {
                     senha, sobrenome, status);
             if (listaPessoaResponse.isEmpty()) {
                 if (codigoPessoa != null) {
-                    return ResponseEntity.ok(new EnderecoResponse());
+                    return ResponseEntity.ok(new ArrayList<>());
                 } else {
                     return ResponseEntity.ok(listaPessoaResponse);
                 }

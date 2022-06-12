@@ -50,7 +50,7 @@ public class UfController {
         } else {
             listaUfsResponse = service.listaUfsComParametro(codigoUF, nome, sigla, status);
             if (listaUfsResponse.isEmpty()) {
-                return ResponseEntity.ok(new UfResponse());
+                return ResponseEntity.ok(new ArrayList<>());
             } else if (listaUfsResponse.size() == 1) {
                 return ResponseEntity.ok(listaUfsResponse.stream().findFirst().get()); //Retorna apenas um objeto
             } else {
